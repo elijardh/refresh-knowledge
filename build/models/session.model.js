@@ -10,6 +10,5 @@ const sessionSchema = new mongoose_1.default.Schema({
     valid: { type: Boolean, default: true, },
     userAgent: { type: String }
 }, { timestamps: true });
-//function called before saving it
 const SessionModel = mongoose_1.default.model("Session", sessionSchema);
 exports.default = SessionModel;

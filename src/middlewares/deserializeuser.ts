@@ -18,6 +18,8 @@ export const deserialUser = async ( req:Request,res:Response,next: NextFunction)
 
     if (decoded) {
         res.locals.user = decoded;
+
+        console.log(JSON.stringify( res.locals.user));
         return next();
     }
 
@@ -34,11 +36,16 @@ export const deserialUser = async ( req:Request,res:Response,next: NextFunction)
             
             res.setHeader("x-access-token", newAccessToken);
 
-            const result = verifyJWT(newAccessToken);
-            console.log(result.expired);
+            const {decoded,expired} = verifyJWT(newAccessToken);
+         
+            console.log(JSON.stringify(decoded));
             
-            res.locals.user = result.decoded;
+            res.locals.user = decoded;
 
+            const user = res.locals.user;
+
+            console.log(JSON.stringify(user));
+            
             return next();
 
         }

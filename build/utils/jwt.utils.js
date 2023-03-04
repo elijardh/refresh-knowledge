@@ -7,13 +7,11 @@ exports.verifyJWT = exports.signJWT = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 function signJWT(object, options) {
     const privatekey = process.env.PRIVATEKEY;
-    const publicKey = process.env.PUBLICKEY;
     return jsonwebtoken_1.default.sign(object, privatekey, Object.assign(Object.assign({}, (options && options)), { algorithm: "RS256" }));
 }
 exports.signJWT = signJWT;
 function verifyJWT(token) {
     try {
-        const privatekey = process.env.PRIVATEKEY;
         const publicKey = process.env.PUBLICKEY;
         const decoded = jsonwebtoken_1.default.verify(token, publicKey);
         return {

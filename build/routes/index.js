@@ -47,6 +47,8 @@ const user_schema_1 = require("../schema/user.schema");
 const session_controller_1 = require("../controller/session.controller");
 const session_schema_1 = require("../schema/session.schema");
 const requireuser_1 = __importDefault(require("../middlewares/requireuser"));
+const product_schema_1 = require("../schema/product.schema");
+const product_controller_1 = require("../controller/product.controller");
 const responses = new responses_1.default();
 const app = (0, express_1.default)();
 class Routes {
@@ -72,6 +74,10 @@ class Routes {
             app.get("/api/session", requireuser_1.default, session_controller_1.getUserSessionHandler);
             //delete session
             app.delete("/api/session", requireuser_1.default, session_controller_1.deleteSessionHandler);
+            app.post("/api/products", [requireuser_1.default, (0, validate_1.default)(product_schema_1.createProductSchema)], product_controller_1.createProductHandler);
+            app.put("/api/products/:productID", [requireuser_1.default, (0, validate_1.default)(product_schema_1.updateProductSchema)], product_controller_1.updateProductHandler);
+            app.get("/api/products/:productID", (0, validate_1.default)(product_schema_1.getProductSchema), product_controller_1.getProductHandler);
+            app.delete("/api/products/:productID", [requireuser_1.default, (0, validate_1.default)(product_schema_1.deleteProductSchema)], product_controller_1.deleteProductHandler);
             app.get("/:id", (req, res) => __awaiter(this, void 0, void 0, function* () {
                 const id = parseInt(req.params.id, 10);
                 try {

@@ -31,7 +31,7 @@ export async function validatePassword(email:string, password:string) {
 
 export async function findUser(id:string) {
     
-    const user = UserModel.findById(id).lean;
+    const user = await UserModel.findById(id).lean();
     console.log(user?.name + "jaja");
     
 

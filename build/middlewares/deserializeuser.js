@@ -22,6 +22,7 @@ const deserialUser = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
     const { decoded, expired } = (0, jwt_utils_1.verifyJWT)(accesToken);
     if (decoded) {
         res.locals.user = decoded;
+        console.log(JSON.stringify(res.locals.user));
         return next();
     }
     if (expired && refreshToken) {
@@ -30,9 +31,11 @@ const deserialUser = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         if (typeof newAccessToken == 'string') {
             console.log("token renewed");
             res.setHeader("x-access-token", newAccessToken);
-            const result = (0, jwt_utils_1.verifyJWT)(newAccessToken);
-            console.log(result.expired);
-            res.locals.user = result.decoded;
+            const { decoded, expired } = (0, jwt_utils_1.verifyJWT)(newAccessToken);
+            console.log(JSON.stringify(decoded));
+            res.locals.user = decoded;
+            const user = res.locals.user;
+            console.log(JSON.stringify(user));
             return next();
         }
     }

@@ -43,7 +43,7 @@ export async function reissueAccesToken(refreshToken:string) {
 
     const user = await findUser(session.user)
     
-    //const user = await UserModel.findOne(session.user);
+    //const user = await UserModel.findOne(session.user).lean();
 
     console.log(user);
     
@@ -51,7 +51,7 @@ export async function reissueAccesToken(refreshToken:string) {
         return false;
     }
 
-        // create an access token
+    // create an access token
 
    const accessTokenTtl = process.env.ACCESSTOKENTTL as string;
    

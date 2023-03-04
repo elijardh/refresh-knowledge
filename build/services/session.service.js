@@ -16,7 +16,7 @@ exports.reissueAccesToken = exports.updateSession = exports.findSession = export
 const session_model_1 = __importDefault(require("../models/session.model"));
 const jwt_utils_1 = require("../utils/jwt.utils");
 const lodash_1 = require("lodash");
-const user_model_1 = __importDefault(require("../models/user.model"));
+const user_service_1 = require("./user.service");
 function createSession(userID, userAgent) {
     return __awaiter(this, void 0, void 0, function* () {
         const session = yield session_model_1.default.create({ user: userID, userAgent: userAgent });
@@ -48,8 +48,8 @@ function reissueAccesToken(refreshToken) {
         if (!session || !session.valid) {
             return false;
         }
-        //const user = await findUser(session.user)
-        const user = yield user_model_1.default.findById(session.user);
+        const user = yield (0, user_service_1.findUser)(session.user);
+        //const user = await UserModel.findOne(session.user).lean();
         console.log(user);
         if (!user) {
             return false;

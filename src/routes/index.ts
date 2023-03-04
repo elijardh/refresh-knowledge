@@ -10,7 +10,9 @@ import validate from "../middlewares/validate";
 import { createUserSchema } from "../schema/user.schema";
 import { createSessionHandler, deleteSessionHandler, getUserSessionHandler } from "../controller/session.controller";
 import { createSessionSchema } from "../schema/session.schema";
-import requireUser from "../middlewares/requireuser";
+import requireUser from '../middlewares/requireuser';
+import { createProductSchema, updateProductSchema, getProductSchema, deleteProductSchema } from '../schema/product.schema';
+import { createProductHandler, deleteProductHandler, getProductHandler, updateProductHandler } from "../controller/product.controller";
 
 const responses = new Responses();
 
@@ -46,6 +48,14 @@ class Routes {
 
         //delete session
         app.delete("/api/session",requireUser, deleteSessionHandler );
+
+        app.post("/api/products",[requireUser,validate(createProductSchema)], createProductHandler);
+
+        app.put("/api/products/:productID",[requireUser,validate(updateProductSchema)], updateProductHandler);
+
+        app.get("/api/products/:productID",validate(getProductSchema), getProductHandler);
+
+        app.delete("/api/products/:productID",[requireUser,validate(deleteProductSchema)], deleteProductHandler);
 
 
         app.get("/:id",async (req: Request, res:Response) =>{

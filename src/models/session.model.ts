@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import bcrypt, { hashSync } from "bcrypt";
 import { UserDocument } from "./user.model";
 
 //user interface
@@ -20,12 +19,6 @@ const sessionSchema = new mongoose.Schema({
  
 },{timestamps:true});
 
-
-//function called before saving it
-
-
-
- 
 
 const SessionModel = mongoose.model<SessionDocument>("Session",sessionSchema);
  

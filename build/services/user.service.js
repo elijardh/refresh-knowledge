@@ -46,7 +46,7 @@ function validatePassword(email, password) {
 exports.validatePassword = validatePassword;
 function findUser(id) {
     return __awaiter(this, void 0, void 0, function* () {
-        const user = yield user_model_1.default.findById(id).lean;
+        const user = yield user_model_1.default.findById(id).lean();
         console.log((user === null || user === void 0 ? void 0 : user.name) + "jaja");
         return user;
     });
